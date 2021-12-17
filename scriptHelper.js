@@ -85,15 +85,15 @@ document.addEventListener("submit", function (event) {
                     }
 
                     if (pilotName.match(/[0-9]/g) != null || copilotName.match(/[0-9]/g) != null) {
-                    nonWord = "Pilots names must be alpha characters.\n";
+                    nonWord = "Pilots names must contain letters.\n";
                     }
             
                     if (isNaN(fuelLevel) || isNaN(cargoMass)) {
-                    nonNumber = "Fuel levels and Cargo mass must be numeric.\n";
+                    nonNumber = "Fuel levels and Cargo mass must be entered with a number value.\n";
                     }
             
                     if (emptyFields || nonAlpha || nonNumeric) {
-                    let errorMessage = `${emptyFields}${nonAlpha}${nonNumeric}`;
+                    let errorMessage = `${emptyFields}${nonWord}${nonNumber}`;
                     alert(errorMessage);
                     }
 
