@@ -77,19 +77,19 @@ document.addEventListener("submit", function (event) {
             const fuelLevel = document.querySelector("[name=fuelLevel]").value;
             const cargoMass = document.querySelector("[name=cargoMass]").value;
                     let emptyFields = "";
-                        let nonAlpha = "";
-                            let nonNumeric = "";
+                        let nonWord = "";
+                            let nonNumber = "";
 
                     if (!pilotName || !copilotName || !fuelLevel || !cargoMass) {
                     emptyFields = "All fields must be filled in.\n";
                     }
 
                     if (pilotName.match(/[0-9]/g) != null || copilotName.match(/[0-9]/g) != null) {
-                    nonAlpha = "Pilots names must be alpha characters.\n";
+                    nonWord = "Pilots names must be alpha characters.\n";
                     }
             
                     if (isNaN(fuelLevel) || isNaN(cargoMass)) {
-                    nonNumeric = "Fuel levels and Cargo mass must be numeric.\n";
+                    nonNumber = "Fuel levels and Cargo mass must be numeric.\n";
                     }
             
                     if (emptyFields || nonAlpha || nonNumeric) {
