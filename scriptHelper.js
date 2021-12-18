@@ -1,142 +1,93 @@
 // Write your helper functions here!
 require('isomorphic-fetch');
 
-
-async function pickPlanet () {
-    window.addEventListener("load", () => {
-        fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
-            response.json().then(function (planetaryData) {
-                const missionTarget = document.getElementById("missionTarget");
-                    let index = Math.floor(Math.random() * (planetaryData.length));
-                        missionTarget.innerHTML += `
-                            <div>                            
-                                <h2>Mission Destination</h2>   
-                                    <ol>        
-                                        <li>Name:       ${planetaryData[index].name}</li>
-                                        <li>Diameter:   ${planetaryData[index].diameter}</li>
-                                        <li>Star:       ${planetaryData[index].star}</li>
-                                        <li>Distance:   ${planetaryData[index].distance}</li>
-                                        <li>Moons:      ${planetaryData[index].moons}</li>
-                                    </ol>
-                                    <img id="missionTarget img" src=${planetaryData[index].image}></img>
-                                </div>
-                            `;
-            });
-        });
-    });
+function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
+ 
+   // Here is the HTML formatting for our mission target div.
+   
+      /*         <h2>Mission Destination</h2>
+                <ol>
+                    <li>Name: ${name} </li>
+                    <li>Diameter: ${diameter} </li>
+                    <li>Star: ${star}</li>
+                    <li>Distance from Earth: ${distance} </li>
+                    <li>Number of Moons: ${moons} </li>
+                </ol>
+                <img src="${imageURL}">
+   */
 }
 
-function formSubmission (document, pilot, copilot, fuelLevel, cargoMass) {
+function validateInput(testInput) {
+    if (testInput === '') {
+        return "This field is empty"
+    }else if (isNaN(testInput)) {
+        return "This is not a number"
+    } else if (isNaN(testInput)) { 
+        return "This is a number"
+    }
+  }
+    
+function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+   let fuel = document.getElementById("fuelStatus");
+   let cargo = document.getElementById("cargoStatus");
+   let pilotStatus = document.getElementById("pilotStatus");
+   let copilotStatus = document.getElementById("copilotStatus");
 
-                        launchStatus.innerHTML += `
-                        <div>
-                            <ol>
-                                `
-                            pilotStatus.innerHTML = `Pilot ${pilot} Ready`
-                                copilotStatus.innerHTML = `CoPilot ${copilot} Ready`;
+   if(validateInput(pilot) === "This field is empty" || validateInput(copilot) === "This field is empty" || validateInput(fuelLevel) === "This field is empty" || validateInput(cargoLevel) === "This field is empty") {
+       alert("Remember - all fields are required! Please fill out the necessary information!");
 
-                            if (fuelLevel >= 10000) {
-                                faultyItems.style.visibility = 'visible';
-                                    launchStatus.innerHTML = `Shuttle is ready for launch`;
-                                        launchStatus.style.color = `green`;
-                                            fuelStatus.innerHTML = `Fuel level high enough for launch`;
-       
-                            }
-                            if (cargoMass <= 10000) {
-                                faultyItems.style.visibility = 'visible';
-                                    launchStatus.innerHTML = `Shuttle is ready for launch`;
-                                        launchStatus.style.color = `green`;
-                                            cargoStatus.innerHTML = `Cargo mass low enough for launch`;
-       
-                            }    
-                            if (fuelLevel <= 10000){
-                                faultyItems.style.visibility = 'visible';
-                                    launchStatus.innerHTML = `Shuttle not ready for launch`;
-                                        launchStatus.style.color = `red`;
-                                            fuelStatus.innerHTML = `Fuel level too low for launch`;
-                            }
-                            if (cargoMass >= 10000) {
-                                faultyItems.style.visibility = 'visible';
-                                    launchStatus.innerHTML = `Shuttle not ready for launch`;
-                                        launchStatus.style.color = `red`;
-                                            cargoStatus.innerHTML = `Cargo mass over capacity for launch`;
-                            }                                                     
-                                    `
-                                </ol>
-                            </div>
-                            `; 
-                        
-}
+   }else if (validateInput(pilot) === "This is a number" || validateInput(copilot) === "This is a number" || validateInput(fuelLevel) === "This is not a number" || validateInput(cargoLevel) === "This is not a numnber") {
+       alert("Please remember to fill out the correct information that pertains to the field. Thanks!");
 
-function validateInput() {
-document.addEventListener("submit", function (event) {
-    event.preventDefault();
+   } else {
+       console.log(list)
+       list.style.visibility = "visible";
+       pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch!`
+       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch!`
 
-            const pilotName = document.querySelector("[name=pilotName]").value;
-            const copilotName = document.querySelector("[name=copilotName]").value;
-            const fuelLevel = document.querySelector("[name=fuelLevel]").value;
-            const cargoMass = document.querySelector("[name=cargoMass]").value;
-                    let emptyFields = "";
-                        let nonWord = "";
-                            let nonNumber = "";
+       let launchStatus = document.getElementById("launchStatus")
+        if (fuelLevel <= 10000 && cargoLevel >= 10000) {
+            fuel.innerHTML = "The fuel level is too low for launch!"
+            cargo.innerHTML = "There is too much cargo on the shuttle for take off!"
+            launchStatus.innerHTML = "The shuttle is not ready for launch"
+            launchStatus.style.color = "red";
+        }else if (fuelLevel > 10000 && cargoLevel > 10000) {
+            fuel.innerHTML = "The fuel level is high enough!"
+            cargo.innerHTML = "The cargo mass is too high for this journey"
+            launchStatus.innerHTML = "The shuttle is not ready for launch!"
+            launchStatus.style.color = "red";
+        }else if (fuelLevel < 10000 && cargoLevel < 10000) {
+            fuel.innerHTML = "The fuel level is too low for launch!"
+            cargo.innerHTML = "The cargo mass is low enough for launch!"
+            launchStatus.innerHTML = "The shuttle is not ready for launch"
+            launchStatus.stye.color = "red";
 
-                    if (!pilotName || !copilotName || !fuelLevel || !cargoMass) {
-                    emptyFields = "All fields must be filled in.\n";
-                    }
+        } else (fuelLevel > 10000 && cargoLevel < 10000) 
+            fuel.innerHTML = "The fuel level is high enough for launch!"
+            cargo.innerHTML = "The cargo mass is low enough for launch!"
+            launchStatus.innerHTML = "The shuttle is ready to launch!!"
+            launchStatus.style.color = "green";
+        
 
-                    if (pilotName.match(/[0-9]/g) != null || copilotName.match(/[0-9]/g) != null) {
-                    nonWord = "Pilots names must contain letters.\n";
-                    }
-            
-                    if (isNaN(fuelLevel) || isNaN(cargoMass)) {
-                    nonNumber = "Fuel levels and Cargo mass must be entered with a number value.\n";
-                    }
-            
-                    if (emptyFields || nonAlpha || nonNumeric) {
-                    let errorMessage = `${emptyFields}${nonWord}${nonNumber}`;
-                    alert(errorMessage);
-                    }
 
-                    else { formSubmission(event, pilotName, copilotName, fuelLevel, cargoMass); }
-
- });
-}
+    
+   }
+};
 
 async function myFetch() {
-let planetsReturned;
+    let planetsReturned;
 
-await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {response.json().then(function (planetsReturned) {
-
-    return planetsReturned;
-    });
-
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+       return response.json();
 });
 
-
+    return planetsReturned;
 }
 
-function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
-// Here is the HTML formatting for our mission target div.
-
-//    fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
-//     response.json().then(function (json) {
-     const missionTarget = document.getElementById("missionTarget");
-
-                 missionTarget.innerHTML += `
-                     <div>
-                         <ol>        
-                             <li>Name: ${name}</li>
-                             <li>Diameter: ${diameter}</li>
-                             <li>Star: ${star}</li>
-                             <li>Distance: ${distance}</li>
-                             <li>Moons: ${moons}</li>
-                         </ol>
-                         <img src=${imageUrl}></img>
-                     </div>
-                             `;
-
+function pickPlanet(planets) {
+    let index = Math.floor(Math.random() * planets.length);
+    return planets[index];
 }
-
 
 module.exports.addDestinationInfo = addDestinationInfo;
 module.exports.validateInput = validateInput;
