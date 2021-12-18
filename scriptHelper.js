@@ -2,10 +2,13 @@
 require('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
+    let missionTarget = document.getElementById("missionTarget");
+    missionTarget.innerHTML = `
+    
  
    // Here is the HTML formatting for our mission target div.
    
-      /*         <h2>Mission Destination</h2>
+               <h2>Mission Destination</h2>
                 <ol>
                     <li>Name: ${name} </li>
                     <li>Diameter: ${diameter} </li>
@@ -13,21 +16,26 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                     <li>Distance from Earth: ${distance} </li>
                     <li>Number of Moons: ${moons} </li>
                 </ol>
-                <img src="${imageURL}">
-   */
+                <img src="${imageURL}"> `;
+   
 }
 
 function validateInput(testInput) {
     if (testInput === '') {
-        return 'Empty'
+        return "Empty";
     }else if (isNaN(testInput)) {
-        return 'Not a number'
+        return "Not a number";
     } else if (isNaN(testInput)) { 
-        return 'Is a number'
+        return "Is a number";
     }
   }
     
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+   let list = document.querySelector("faultyItems");
+   let pilot = document.querySelector("input[name=pilotName]").value;
+   let copilot = document.querySelector("input[name=copilotName]").value;
+   let fuelLevel = document.querySelector("input[name=fuelLevel]").value;
+   let cargoMass = document.querySelector("input[name=cargoMass]").value;
    let fuel = document.getElementById("fuelStatus");
    let cargo = document.getElementById("cargoStatus");
    let pilotStatus = document.getElementById("pilotStatus");
@@ -42,9 +50,9 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    } else {
 
        console.log(list)
-       list.style.visibility = 'hidden';
+       list.style.visibility = 'visible';
        pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
-       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch`
+       copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`
 
        let launchStatus = document.getElementById("launchStatus")
         if (fuelLevel <= 10000 && cargoLevel >= 10000) {
@@ -53,20 +61,20 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             launchStatus.innerHTML = "The shuttle is not ready for launch"
             launchStatus.style.color = "red";
         }else if (fuelLevel > 10000 && cargoLevel > 10000) {
-            fuel.innerHTML = "The fuel level is high enough!"
+            fuel.innerHTML = "Fuel level is high enough for launch"
             cargo.innerHTML = "The cargo mass is too high for this journey"
             launchStatus.innerHTML = "The shuttle is not ready for launch!"
             launchStatus.style.color = "red";
         }else if (fuelLevel < 10000 && cargoLevel < 10000) {
             fuel.innerHTML = "The fuel level is too low for launch!"
-            cargo.innerHTML = "The cargo mass is low enough for launch!"
+            cargo.innerHTML = "The cargo mass is low enough for launch"
             launchStatus.innerHTML = "The shuttle is not ready for launch"
-            launchStatus.stye.color = "red";
+            launchStatus.style.color = "red";
 
         } else (fuelLevel > 10000 && cargoLevel < 10000) 
             fuel.innerHTML = "The fuel level is high enough for launch!"
             cargo.innerHTML = "The cargo mass is low enough for launch!"
-            launchStatus.innerHTML = "The shuttle is ready to launch!!"
+            launchStatus.innerHTML = "The shuttle is ready to launch!"
             launchStatus.style.color = 'green';
         
 
