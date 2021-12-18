@@ -19,11 +19,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
 function validateInput(testInput) {
     if (testInput === '') {
-        return "Empty"
+        return 'Empty'
     }else if (isNaN(testInput)) {
-        return "Not a number"
+        return 'Not a number'
     } else if (isNaN(testInput)) { 
-        return "Is a number"
+        return 'Is a number'
     }
   }
     
@@ -33,17 +33,18 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    let pilotStatus = document.getElementById("pilotStatus");
    let copilotStatus = document.getElementById("copilotStatus");
 
-   if(validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+   if(validateInput(pilot) === 'Empty' || validateInput(copilot) === 'Empty' || validateInput(fuelLevel) === 'Empty' || validateInput(cargoLevel) === 'Empty') {
        alert("Remember - all fields are required! Please fill out the necessary information!");
 
-   }else if (validateInput(pilot) === "Is a number" || validateInput(copilot) === "Is a number" || validateInput(fuelLevel) === "Not a number" || validateInput(cargoLevel) === "Not a number") {
+   }else if (validateInput(pilot) === 'Is a number' || validateInput(copilot) === 'Is a number' || validateInput(fuelLevel) === 'Not a number' || validateInput(cargoLevel) === 'Not a number') {
        alert("Please remember to fill out the correct information that pertains to the field. Thanks!");
 
    } else {
+
        console.log(list)
-       list.style.visibility = "visible";
-       pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch.`
-       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch.`
+       list.style.visibility = 'hidden';
+       pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
+       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch`
 
        let launchStatus = document.getElementById("launchStatus")
         if (fuelLevel <= 10000 && cargoLevel >= 10000) {
@@ -66,7 +67,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             fuel.innerHTML = "The fuel level is high enough for launch!"
             cargo.innerHTML = "The cargo mass is low enough for launch!"
             launchStatus.innerHTML = "The shuttle is ready to launch!!"
-            launchStatus.style.color = "green";
+            launchStatus.style.color = 'green';
         
 
 
@@ -94,3 +95,4 @@ module.exports.validateInput = validateInput;
 module.exports.formSubmission = formSubmission;
 module.exports.pickPlanet = pickPlanet; 
 module.exports.myFetch = myFetch;
+
