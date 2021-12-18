@@ -42,8 +42,8 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    } else {
        console.log(list)
        list.style.visibility = "visible";
-       pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch!`
-       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch!`
+       pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch.`
+       copilotStatus.innerHTML = `Copilot ${copilot} is ready for launch.`
 
        let launchStatus = document.getElementById("launchStatus")
         if (fuelLevel <= 10000 && cargoLevel >= 10000) {
