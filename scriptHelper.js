@@ -19,11 +19,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
 function validateInput(testInput) {
     if (testInput === '') {
-        return "This field is empty"
+        return "Empty"
     }else if (isNaN(testInput)) {
-        return "This is not a number"
+        return "Not a number"
     } else if (isNaN(testInput)) { 
-        return "This is a number"
+        return "Is a number"
     }
   }
     
@@ -33,10 +33,10 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
    let pilotStatus = document.getElementById("pilotStatus");
    let copilotStatus = document.getElementById("copilotStatus");
 
-   if(validateInput(pilot) === "This field is empty" || validateInput(copilot) === "This field is empty" || validateInput(fuelLevel) === "This field is empty" || validateInput(cargoLevel) === "This field is empty") {
+   if(validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
        alert("Remember - all fields are required! Please fill out the necessary information!");
 
-   }else if (validateInput(pilot) === "This is a number" || validateInput(copilot) === "This is a number" || validateInput(fuelLevel) === "This is not a number" || validateInput(cargoLevel) === "This is not a numnber") {
+   }else if (validateInput(pilot) === "Is a number" || validateInput(copilot) === "Is a number" || validateInput(fuelLevel) === "Not a number" || validateInput(cargoLevel) === "Not a number") {
        alert("Please remember to fill out the correct information that pertains to the field. Thanks!");
 
    } else {
